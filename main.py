@@ -5,30 +5,29 @@ class Pet():
         self.hunger = hunger
         self.boredom = boredom
         self.sleepiness = sleepiness
-        self.dead = False
+        self.dead = self.check_death()
     
     def feed(self):
-        if self.hunger > 2:
+        if self.hunger > 2 and not self.dead:
             self.hunger -= 3
     
     def play(self):
-        if self.boredom > 2:
+        if self.boredom > 2 and not self.dead:
             self.boredom -= 3
     
     def sleep(self):
-        if self.sleepiness > 4:
+        if self.sleepiness > 4 and not self.dead:
             self.sleepiness -= 5
     
     def wait(self):
-        self.age += 1
-        self.hunger += 1
-        self.boredom += 1
-        self.sleepiness += 1
+        if not self.dead:
+            self.age += 1
+            self.hunger += 1
+            self.boredom += 1
+            self.sleepiness += 1
 
     def check_death(self):
-        if self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15:
-            self.dead = True
-            return True
+        return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
 
 bobby = Pet()
 
