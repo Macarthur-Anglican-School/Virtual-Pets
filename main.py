@@ -7,6 +7,14 @@ class Pet():
         self.sleepiness = sleepiness
         self.dead = self.check_death()
     
+    def __str__(self):
+        return f"""Name: {self.name}
+Age: {self.age}
+Hunger: {self.hunger}
+Boredom: {self.boredom}
+Sleepiness: {self.sleepiness}
+Dead: {self.dead}"""
+    
     def feed(self):
         if self.hunger > 2 and not self.dead:
             self.hunger -= 3
@@ -35,7 +43,8 @@ class Pet():
     def check_death(self):
         return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
 
-bobby = Pet()
+bobby = Pet("Bobby")
+print(bobby)
 
 ####----Task 1----####
 #Set up your pet with the following attributes:
