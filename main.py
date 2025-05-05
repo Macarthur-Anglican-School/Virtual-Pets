@@ -1,6 +1,36 @@
 class Pet():
-    def __init__(self):
+    def __init__(self, name, age=0, hunger=5, boredom=3, sleepiness=3):
+        self.name = name
+        self.age = age
+        self.hunger = hunger
+        self.boredom = boredom
+        self.sleepiness = sleepiness
         self.dead = False
+    
+    def feed(self):
+        if self.hunger > 2:
+            self.hunger -= 3
+    
+    def play(self):
+        if self.boredom > 2:
+            self.boredom -= 3
+    
+    def sleep(self):
+        if self.sleepiness > 4:
+            self.sleepiness -= 5
+    
+    def wait(self):
+        self.age += 1
+        self.hunger += 1
+        self.boredom += 1
+        self.sleepiness += 1
+
+    def check_death(self):
+        if self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15:
+            self.dead = True
+            return True
+
+bobby = Pet()
 
 ####----Task 1----####
 #Set up your pet with the following attributes:
