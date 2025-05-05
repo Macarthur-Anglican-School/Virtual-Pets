@@ -25,6 +25,12 @@ class Pet():
             self.hunger += 1
             self.boredom += 1
             self.sleepiness += 1
+    
+    def kill(self):
+        self.age = 15
+        self.hunger = 10
+        self.boredom = 10
+        self.sleepiness = 10
 
     def check_death(self):
         return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
