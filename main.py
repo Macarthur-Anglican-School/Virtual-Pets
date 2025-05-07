@@ -95,3 +95,6 @@ print(Pet.ADULT)
 #what I'm talking about.
 
 #Go to page 9 of the tutorial to learn how to make the mainline (https://classroom.google.com/w/NzE2NTQ0NzA2MTYx/t/all)
+
+####---Task 7----####
+#Use Python's name mangling strategy to convert the death attribute to be private
