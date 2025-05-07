@@ -5,7 +5,7 @@ class Pet():
         self.hunger = hunger
         self.boredom = boredom
         self.sleepiness = sleepiness
-        self.dead = self.check_death()
+        self.__dead = self.check_death()
     
     def __str__(self):
         return f"""Name: {self.name}
@@ -13,22 +13,22 @@ Age: {self.age}
 Hunger: {self.hunger}
 Boredom: {self.boredom}
 Sleepiness: {self.sleepiness}
-Dead: {self.dead}"""
+Dead: {self.__dead}"""
     
     def feed(self):
-        if self.hunger > 2 and not self.dead:
+        if self.hunger > 2 and not self.__dead:
             self.hunger -= 3
     
     def play(self):
-        if self.boredom > 2 and not self.dead:
+        if self.boredom > 2 and not self.__dead:
             self.boredom -= 3
     
     def sleep(self):
-        if self.sleepiness > 4 and not self.dead:
+        if self.sleepiness > 4 and not self.__dead:
             self.sleepiness -= 5
     
     def wait(self):
-        if not self.dead:
+        if not self.__dead:
             self.age += 1
             self.hunger += 1
             self.boredom += 1
