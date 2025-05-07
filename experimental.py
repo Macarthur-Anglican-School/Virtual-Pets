@@ -1,31 +1,32 @@
-class Pet():
-    BABY = r""" v___v
-(o)_(o)
-`ʋ---ʋ`
-"""
-    CHILD = r""" V_____V
-(O) w (O)
-/| ___ |\
-  U   U"""
-    ADULT = r"""  W_______W
-ᗧ(〇) W (〇)ᗤ
-ᒪ/         \ᒧ
- \_________/
-  ᗜ      ᗜ"""
+import random
 
-    def __init__(self, name, age=0, hunger=5, boredom=3, sleepiness=3):
+genders = ["male", "female"]
+
+class Homosexual(Exception):
+    pass
+
+class Pet():
+    def __init__(self, name, gender=None, age=0, hunger=5, boredom=3, sleepiness=3):
         self.name = name
         self.age = age
         self.hunger = hunger
         self.boredom = boredom
         self.sleepiness = sleepiness
         self.__dead = self.check_death()
+
+        if gender:
+            self.gender = gender
+        else:
+            self.gender = random.choice(genders)
     
     def __str__(self):
         return f"""Name: {self.name}
-Hunger: {'●' * self.hunger}
-Boredom: {'●' * self.boredom}
-Sleepiness: {'●' * self.sleepiness}"""
+Age: {self.age}
+Gender: {self.gender}
+Hunger: {self.hunger}
+Boredom: {self.boredom}
+Sleepiness: {self.sleepiness}
+Dead: {self.__dead}"""
     
     def feed(self):
         if self.hunger > 2 and not self.__dead:
@@ -54,9 +55,19 @@ Sleepiness: {'●' * self.sleepiness}"""
 
     def check_death(self):
         return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
+    
+    @classmethod
+    def reproduce(cls, partner1, partner2, name):
+        if partner1.gender != partner2.gender:
+            return cls(name, random.choice(genders))
+        else:
+            raise Homosexual("🚨 GAY ALERT 🚨")
 
-bobby = Pet("Bobby")
-print(Pet.ADULT)
+bobby = Pet("Bobby", "male")
+adam = Pet("Adam", "female")
+
+john = Pet.reproduce(bobby, adam, "John")
+print(john, bobby, adam)
 
 ####----Task 1----####
 #Set up your pet with the following attributes:
