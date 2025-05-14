@@ -23,6 +23,7 @@ class Pet():
         self.hunger = hunger
         self.boredom = boredom
         self.sleepiness = sleepiness
+        self.health = 20
         self.__dead = self.check_death()
 
         if gender:
@@ -64,6 +65,11 @@ Sleepiness: {'●' * self.sleepiness}
             self.hunger += 1
             self.boredom += 1
             self.sleepiness += 1
+
+            if self.age > 2:
+                self.health = 50
+            if self.age > 5:
+                self.health = 100
     
     def kill(self):
         self.age = 15
@@ -74,12 +80,35 @@ Sleepiness: {'●' * self.sleepiness}
     def check_death(self):
         return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
 
-def reproduce(pet1: Pet, pet2: Pet, name, **kwargs):
-    if pet1.gender != pet2.gender:
-        return Pet(name, **kwargs)
-    else:
-        raise Exception("🚨 Gay Alert 🚨")
+    def reproduce(self, pet, name, **kwargs):
+        if self.gender != pet.gender:
+            return Pet(name, **kwargs)
+        else:
+            raise Exception("🚨 Gay Alert 🚨")
+
+
+import time
+def fight(pet1: Pet, pet2: Pet):
+    while True:
+        attack1 = random.randint(10, 20)
+        pet2.health -= attack1
+        print(f"{pet1.name} deals {attack1} damage to {pet2.name}! {pet2.name} is at {pet2.health} health.")
+
+        if pet2.health <= 0:
+            print(f"{pet2.name} has lost the fight!")
+            break
+        
+        attack2 = random.randint(10, 20)
+        pet1.health -= attack2
+        print(f"{pet2.name} deals {attack2} damage to {pet1.name}! {pet1.name} is at {pet1.health} health.")
+
+        if pet1.health <= 0:
+            print(f"{pet1.name} has lost the fight!")
+            break
+
+        time.sleep(1)
 
 bobby = Pet("Bobby")
-bobby.age = 7
-print(bobby)
+charlie = Pet("Charlie")
+
+fight(bobby, charlie)
