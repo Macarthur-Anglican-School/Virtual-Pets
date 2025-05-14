@@ -1,4 +1,5 @@
 import random
+import time
 
 genders = ["male", "female"]
 
@@ -23,8 +24,13 @@ class Pet():
         self.hunger = hunger
         self.boredom = boredom
         self.sleepiness = sleepiness
-        self.health = 20
+        self.health = 50
         self.__dead = self.check_death()
+
+        if self.age > 2:
+            self.health = 70
+        if self.age > 5:
+            self.health = 100
 
         if gender:
             self.gender = gender
@@ -67,7 +73,7 @@ Sleepiness: {'●' * self.sleepiness}
             self.sleepiness += 1
 
             if self.age > 2:
-                self.health = 50
+                self.health = 70
             if self.age > 5:
                 self.health = 100
     
@@ -86,29 +92,35 @@ Sleepiness: {'●' * self.sleepiness}
         else:
             raise Exception("🚨 Gay Alert 🚨")
 
-
-import time
 def fight(pet1: Pet, pet2: Pet):
     while True:
-        attack1 = random.randint(10, 20)
+        attack1 = random.randint(5, 20)
         pet2.health -= attack1
-        print(f"{pet1.name} deals {attack1} damage to {pet2.name}! {pet2.name} is at {pet2.health} health.")
+        print(f"🥊 {pet1.name} deals {attack1} damage to {pet2.name}! 🥊")
+        print(f"🏥 {pet2.name} is at {pet2.health} health. 🏥")
 
         if pet2.health <= 0:
-            print(f"{pet2.name} has lost the fight!")
-            break
-        
-        attack2 = random.randint(10, 20)
-        pet1.health -= attack2
-        print(f"{pet2.name} deals {attack2} damage to {pet1.name}! {pet1.name} is at {pet1.health} health.")
-
-        if pet1.health <= 0:
-            print(f"{pet1.name} has lost the fight!")
+            print(f"☠️ {pet2.name} has lost the fight! ☠️")
             break
 
         time.sleep(1)
+        
+        attack2 = random.randint(5, 20)
+        pet1.health -= attack2
+        print(f"\n🥊 {pet2.name} deals {attack2} damage to {pet1.name}! 🥊")
+        print(f"🏥 {pet1.name} is at {pet1.health} health. 🏥")
 
-bobby = Pet("Bobby")
-charlie = Pet("Charlie")
+        if pet1.health <= 0:
+            print(f"☠️ {pet1.name} has lost the fight! ☠️")
+            break
+
+        print()
+        print("-" * 30)
+        print()
+
+        time.sleep(1.5)
+
+bobby = Pet("Bobby", 5)
+charlie = Pet("Charlie", 5)
 
 fight(bobby, charlie)
