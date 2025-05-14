@@ -3,11 +3,11 @@ import random
 genders = ["male", "female"]
 
 class Pet():
-    BABY = r""" v___v
+    CHILD = r""" v___v
 (o)_(o)
 `ʋ---ʋ`
 """
-    CHILD = r""" V_____V
+    TEEN = r""" V_____V
 (O) w (O)
 /| ___ |\
   U   U"""
@@ -31,10 +31,20 @@ class Pet():
             self.gender = random.choice(genders)
     
     def __str__(self):
+        if self.age < 3:
+            char = Pet.CHILD
+        elif self.age < 6:
+            char = Pet.TEEN
+        else:
+            char = Pet.ADULT
+
         return f"""Name: {self.name}
+Age: {self.age}
+Gender: {self.gender}
 Hunger: {'●' * self.hunger}
 Boredom: {'●' * self.boredom}
-Sleepiness: {'●' * self.sleepiness}"""
+Sleepiness: {'●' * self.sleepiness}
+{char}"""
     
     def feed(self):
         if self.hunger > 2 and not self.__dead:
@@ -68,6 +78,8 @@ def reproduce(pet1: Pet, pet2: Pet, name, **kwargs):
     if pet1.gender != pet2.gender:
         return Pet(name, **kwargs)
     else:
-        raise Exception("Homosexual Alert")
+        raise Exception("🚨 Gay Alert 🚨")
 
 bobby = Pet("Bobby")
+bobby.age = 7
+print(bobby)
