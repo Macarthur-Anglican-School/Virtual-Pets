@@ -55,19 +55,6 @@ Dead: {self.__dead}"""
 
     def check_death(self):
         return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
-    
-    @classmethod
-    def reproduce(cls, partner1, partner2, name):
-        if partner1.gender != partner2.gender:
-            return cls(name, random.choice(genders))
-        else:
-            raise Homosexual("🚨 GAY ALERT 🚨")
-
-bobby = Pet("Bobby", "male")
-adam = Pet("Adam", "female")
-
-john = Pet.reproduce(bobby, adam, "John")
-print(john, bobby, adam)
 
 ####----Task 1----####
 #Set up your pet with the following attributes:
