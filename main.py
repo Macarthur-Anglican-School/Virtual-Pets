@@ -97,30 +97,32 @@ def fight(pet1: Pet, pet2: Pet):
         attack1 = random.randint(5, 20)
         pet2.health -= attack1
         print(f"🥊 {pet1.name} deals {attack1} damage to {pet2.name}! 🥊")
-        print(f"🏥 {pet2.name} is at {pet2.health} health. 🏥")
+        print(f"🏥 {pet2.name} is at {pet2.health} health. 🏥", end="\n\n")
 
         if pet2.health <= 0:
+            print("-" * 30, end="\n\n")
             print(f"☠️ {pet2.name} has lost the fight! ☠️")
+            print(f"🏆 {pet1.name} wins! 🏆")
             break
 
         time.sleep(1)
         
         attack2 = random.randint(5, 20)
         pet1.health -= attack2
-        print(f"\n🥊 {pet2.name} deals {attack2} damage to {pet1.name}! 🥊")
-        print(f"🏥 {pet1.name} is at {pet1.health} health. 🏥")
+        print(f"🥊 {pet2.name} deals {attack2} damage to {pet1.name}! 🥊")
+        print(f"🏥 {pet1.name} is at {pet1.health} health. 🏥", end="\n\n")
 
         if pet1.health <= 0:
+            print("-" * 30, end="\n\n")
             print(f"☠️ {pet1.name} has lost the fight! ☠️")
+            print(f"🏆 {pet2.name} wins! 🏆")
             break
 
-        print()
-        print("-" * 30)
-        print()
+        print("-" * 30, end="\n\n")
 
         time.sleep(1.5)
 
-bobby = Pet("Bobby", 5)
-charlie = Pet("Charlie", 5)
+bobby = Pet("Bobby", 1)
+charlie = Pet("Charlie", 1)
 
 fight(bobby, charlie)
