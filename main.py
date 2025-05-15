@@ -1,44 +1,130 @@
+import random
+import time
+
+genders = ["male", "female"]
+
 class Pet():
-    def __init__(self):
-        self.dead = False
+    CHILD = r""" v___v
+(o)_(o)
+`ʋ---ʋ`
+"""
+    TEEN = r""" V_____V
+(O) w (O)
+/| ___ |\
+  U   U"""
+    ADULT = r"""  W_______W
+ᗧ(〇) W (〇)ᗤ
+ᒪ/         \ᒧ
+ \_________/
+  ᗜ      ᗜ"""
 
-####----Task 1----####
-#Set up your pet with the following attributes:
-#name (make this mandatory), age (default:0), hunger (default: 5), boredom (default:3), sleepiness(default:3)
+    def __init__(self, name, age=0, gender=None, hunger=5, boredom=3, sleepiness=3):
+        self.name = name
+        self.age = age
+        self.hunger = hunger
+        self.boredom = boredom
+        self.sleepiness = sleepiness
+        self.health = 50
+        self.__dead = self.check_death()
 
-####----Task 2----####
-#instantiate your pet object with the name of your choice
+        if self.age > 2:
+            self.health = 70
+        if self.age > 5:
+            self.health = 100
 
-####----Task 3----#### 
-# We need to add the following methods to our Virtual Pet:
-# 1. Feed - which will reduce hunger by 3
-# use a selection to make sure if hunger goes below zero it gets reset to 0 (we don’t want any negative numbers.)
-# 2. Play - which will reduce boredom by 3
-# 3. Sleep - which will reduce sleepiness by 5
-# 4. Wait - which will increase age, and increase hunger, boredom and sleepiness
-# 5. Is_dead - which will check to see if the Pet has hit the thresholds we have set as the
-# maximum possible hunger, boredom and sleepiness
+        if gender:
+            self.gender = gender
+        else:
+            self.gender = random.choice(genders)
+    
+    def __str__(self):
+        if self.age < 3:
+            char = Pet.CHILD
+        elif self.age < 6:
+            char = Pet.TEEN
+        else:
+            char = Pet.ADULT
 
-###----Task 4----####
-# Make a new method called check_death() that checks when a pet dies.
-# These are the conditions I have chosen to use to determine if the pet should be dead.
-# (Note: you can change these to make your pet harder or easier to keep alive)
-    # ● Boredom is at 10
-    # ● Sleepiness is at 10
-    # ● Hunger is at 10
-    # ● Age is at a random age between 15 and 20 or more
+        return f"""Name: {self.name}
+Age: {self.age}
+Gender: {self.gender}
+Hunger: {'●' * self.hunger}
+Boredom: {'●' * self.boredom}
+Sleepiness: {'●' * self.sleepiness}
+{char}"""
+    
+    def feed(self):
+        if self.hunger > 2 and not self.__dead:
+            self.hunger -= 3
+    
+    def play(self):
+        if self.boredom > 2 and not self.__dead:
+            self.boredom -= 3
+    
+    def sleep(self):
+        if self.sleepiness > 4 and not self.__dead:
+            self.sleepiness -= 5
+    
+    def wait(self):
+        if not self.__dead:
+            self.age += 1
+            self.hunger += 1
+            self.boredom += 1
+            self.sleepiness += 1
 
+            if self.age > 2:
+                self.health = 70
+            if self.age > 5:
+                self.health = 100
+    
+    def kill(self):
+        self.age = 15
+        self.hunger = 10
+        self.boredom = 10
+        self.sleepiness = 10
 
-####---Task 5----####
-#make it so that the feed, sleep, play and wait will check if the pet
-#is dead before you upadate those properties.
+    def check_death(self):
+        return self.boredom >= 10 and self.sleepiness >= 10 and self.hunger >= 10 and self.age >= 15
 
-####---Task 6----####
-#Use Python's predefined __str__ method to produce a string output
-#for your pet. refer to page 4 of the tutorial if you don't know
-#what I'm talking about.
+    def reproduce(self, pet, name, **kwargs):
+        if self.gender != pet.gender:
+            return Pet(name, **kwargs)
+        else:
+            raise Exception("🚨 Gay Alert 🚨")
 
-#Go to page 9 of the tutorial to learn how to make the mainline (https://classroom.google.com/w/NzE2NTQ0NzA2MTYx/t/all)
+def fight(pet1: Pet, pet2: Pet):
+    while True:
+        attack1 = random.randint(5, 20)
+        pet2.health -= attack1
+        print(f"🥊 {pet1.name} deals {attack1} damage to {pet2.name}! 🥊")
+        print(f"🏥 {pet2.name} is at {pet2.health} health. 🏥", end="\n\n")
 
-####---Task 7----####
-#Use Python's name mangling strategy to convert the death attribute to be private
+        if pet2.health <= 0:
+            print("-" * 30, end="\n\n")
+            print(f"☠️ {pet2.name} has lost the fight! ☠️")
+            print(f"🏆 {pet1.name} wins! 🏆")
+            
+            return pet1
+
+        time.sleep(1)
+        
+        attack2 = random.randint(5, 20)
+        pet1.health -= attack2
+        print(f"🥊 {pet2.name} deals {attack2} damage to {pet1.name}! 🥊")
+        print(f"🏥 {pet1.name} is at {pet1.health} health. 🏥", end="\n\n")
+
+        if pet1.health <= 0:
+            print("-" * 30, end="\n\n")
+            print(f"☠️ {pet1.name} has lost the fight! ☠️")
+            print(f"🏆 {pet2.name} wins! 🏆")
+            
+            return pet2
+
+        print("-" * 30, end="\n\n")
+
+        time.sleep(1.5)
+
+bobby = Pet("Bobby", 5)
+charlie = Pet("Charlie", 5)
+
+winner = fight(bobby, charlie)
