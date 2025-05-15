@@ -103,7 +103,8 @@ def fight(pet1: Pet, pet2: Pet):
             print("-" * 30, end="\n\n")
             print(f"☠️ {pet2.name} has lost the fight! ☠️")
             print(f"🏆 {pet1.name} wins! 🏆")
-            break
+            
+            return pet1
 
         time.sleep(1)
         
@@ -116,13 +117,14 @@ def fight(pet1: Pet, pet2: Pet):
             print("-" * 30, end="\n\n")
             print(f"☠️ {pet1.name} has lost the fight! ☠️")
             print(f"🏆 {pet2.name} wins! 🏆")
-            break
+            
+            return pet2
 
         print("-" * 30, end="\n\n")
 
         time.sleep(1.5)
 
-bobby = Pet("Bobby", 1)
-charlie = Pet("Charlie", 1)
+bobby = Pet("Bobby", 5)
+charlie = Pet("Charlie", 5)
 
-fight(bobby, charlie)
+winner = fight(bobby, charlie)
